@@ -6,7 +6,7 @@
         Deals with the accounting aspects of property rentals""",
 
     'description': """
-        Long description of module's purpose
+        Deals with the accounting aspects of property rentals
     """,
 
     'author': "Insafety GmbH, Zürich, Switzerland",
