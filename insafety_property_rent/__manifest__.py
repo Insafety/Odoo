@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "insafety_property_rent",
+    'name': "Insafety Property Rent",
 
     'summary': """
         Deals with the accounting aspects of property rentals""",
