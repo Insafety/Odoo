@@ -3,14 +3,14 @@
     'name': "insafety_property_rent",
 
     'summary': """
-        Deals with the administration and accounting aspects of property rentals""",
+        Deals with the accounting aspects of property rentals""",
 
     'description': """
         Long description of module's purpose
     """,
 
     'author': "Insafety GmbH, Zürich, Switzerland",
-    'website': "https://www.insafety.ch",
+    'website': "https://odoo.insafety.ch",
 
     'category': 'Accounting',
     'version': '0.1',
