@@ -37,5 +37,6 @@
         'data/demo.xml', 
     ],
     'auto_install': True,
-    'license': "LGPL-3"
+    'license': "LGPL-3",
+    'immages': ['static/cover.png'],
 }
