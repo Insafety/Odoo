@@ -38,5 +38,5 @@
     ],
     'auto_install': True,
     'license': "LGPL-3",
-    'images': ['static/cover.png'],
+    'images': ['static/images/main_screenshot.png','static/images/cost_billing_en.png'],
 }
