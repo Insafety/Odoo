@@ -183,9 +183,19 @@ class PropertyTag(models.Model):
         buildings = self.env['insafety.property.building'].search([])
         for building in buildings:  
             for property in building.property_ids:
-                for rent_contract in property.rent_contract_ids:
-                    if property.current_rent_contract_id == rent_contract.tenant_id:
-                        self.create_invoice(rent_contract)
+                for rent_contract in property.rent_contract_ids:     
+                    c = False
+                    t =  datetime.date(datetime.today())    
+                    for contract in rent_contract:
+                        if contract.rent_date_from < t:
+                            if contract.rent_date_to == False:
+                                c = contract 
+                            else:
+                                if contract.rent_date_to >= t:
+                                    c = contract 
+                    if c:
+                        self.create_invoice(c)
+                    
          
         self.env['insafety.property.rent.log'].create(
             {
@@ -197,6 +207,11 @@ class PropertyTag(models.Model):
     def create_invoice(self, contract):
         self = self.with_company(contract.company_id)
         locale.setlocale(locale.LC_ALL, contract.tenant_id.lang + '.UTF-8')
+
+        analyticAccounts = {}
+        for a in contract.building_id.analytic_account_ids:
+            analyticAccounts[str(a.id)] = 100
+
         invoice = self.env['account.move'].create([
             {
                 'move_type': 'out_invoice', 
@@ -207,17 +222,20 @@ class PropertyTag(models.Model):
                 'invoice_line_ids': [(0, 0, {'price_unit': contract.monthly_rent, 
                                             'account_id': contract.account_receivable_id.id, 
                                             'tax_ids': contract.tax_ids,
-                                            'name': _('Monthly Rent')}),
+                                            'name': _('Monthly Rent'),
+                                            'analytic_distribution': analyticAccounts}),
                                     (0, 0, {'price_unit':
                                             contract.monthly_lump_sum_costs, 
                                             'account_id': contract.building_id.cost_billing_receivable_id.id, 
                                             'tax_ids': contract.building_id.cost_billing_tax_ids,
-                                            'name': _('Monthly Lump Sum Costs')}),
+                                            'name': _('Monthly Lump Sum Costs'),
+                                            'analytic_distribution': analyticAccounts}),
                                     (0, 0, {'price_unit':  
                                             contract.monthly_extra_costs, 
                                             'account_id': contract.building_id.cost_billing_receivable_id.id, 
                                             'tax_ids': contract.building_id.cost_billing_tax_ids,
-                                            'name': _('Monthly Extra Costs')})                                 
+                                            'name': _('Monthly Extra Costs'),
+                                            'analytic_distribution': analyticAccounts})                                 
                                     ],
             },
         ])

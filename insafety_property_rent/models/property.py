@@ -35,7 +35,7 @@ class Property(models.Model):
                                           string="Garden Orientation", default="north")
 
     current_rent_contract_id = fields.Many2one('res.partner',
-        string="Current Rent Contract", compute='_compute_current_tenant', store=True, tracking=True)
+        string="Current Rent Contract", compute='_compute_current_tenant', tracking=True)
 
     cost_factor_custom = fields.Float(string="Cost Factor Custom", digits=(3,1), default=1, tracking=True)
     

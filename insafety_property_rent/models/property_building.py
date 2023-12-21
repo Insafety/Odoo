@@ -3,6 +3,7 @@ import locale
 from odoo import _
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+import json
 
 class Property(models.Model):
     _name = 'insafety.property.building'
@@ -70,7 +71,10 @@ class Property(models.Model):
                                                            domain=[('active', '=', True)], relation="insafety_cost_billing_administrative_tax_ids")
 
     cost_billing_direct_post = fields.Boolean(string="Direct Post", default=True)
+
+    analytic_account_ids = fields.Many2many('account.analytic.account', string='Analytic Accounts', tracking=True)
     
+  
     @api.depends('property_ids.rent_contract_ids','distribute_by')
     def _compute_contracts(self):
         for rec in self:    
@@ -124,6 +128,13 @@ class Property(models.Model):
         self = self.with_company(self.company_id)
         building = self
         contracts = self.rent_contract_ids
+
+        analyticAccounts = {}
+        for a in building.analytic_account_ids:
+            analyticAccounts[str(a.id)] = 100
+        
+
+
         for contract in contracts:
             if contract.cost_billing_total != 0:
                 move_type = 'out_invoice'
@@ -149,11 +160,13 @@ class Property(models.Model):
                                     (0, 0, {'price_unit': cost_billing_total - administrative_expenses, 
                                                             'account_id': building.cost_billing_receivable_id.id, 
                                                             'tax_ids': building.cost_billing_tax_ids,
-                                                            'name': _('Balance')}),
+                                                            'name': _('Balance'),
+                                                            'analytic_distribution': analyticAccounts}),
                                                       (0, 0, {'price_unit': administrative_expenses, 
                                                             'account_id': building.cost_billing_administrative_fees_id.id, 
                                                             'tax_ids': building.cost_billing_administrative_tax_ids,
-                                                            'name': _('Administrative Fees')})           
+                                                            'name': _('Administrative Fees'),
+                                                            'analytic_distribution': analyticAccounts})           
                                                     ],
                             },
                         ])      
