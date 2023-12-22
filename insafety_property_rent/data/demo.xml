@@ -38,7 +38,6 @@
             <field name="total_rooms">3.5</field>
             <field name="volume">1.5</field>
             <field name="living_area">75</field>
-            <field name="current_rent_contract_id" eval="27"/>
           </record>
           <record id="demo_appartement_2" model="insafety.property">
             <field name="name">Appartement 2</field>

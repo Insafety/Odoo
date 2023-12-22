@@ -47,6 +47,22 @@ class Property(models.Model):
     
     _sql_constraints = [('name_uniq', 'unique(name)', 'Property already exists')] 
 
+    
+    @api.depends('rent_contract_ids.rent_date_from','rent_contract_ids.rent_date_to')
+    def _compute_current_tenant(self):
+        for rec in self:
+            c = False
+            t =  datetime.date(datetime.today())    
+            for contract in rec.rent_contract_ids:
+                if contract.rent_date_from < t:
+                    if contract.rent_date_to == False:
+                        c = contract.tenant_id 
+                else:
+                    if contract.rent_date_to >= t:
+                        c = contract.tenant_id 
+            rec.current_rent_contract_id = c
+    
+
     @api.depends('current_rent_contract_id')
     def _compute_status(self):
         for rec in self:
@@ -56,20 +72,7 @@ class Property(models.Model):
                 rec.status = 'free'
 
 
-    @api.depends('rent_contract_ids.rent_date_from','rent_contract_ids.rent_date_to')
-    def _compute_current_tenant(self):
-        for rec in self:
-         c = False
-         t =  datetime.date(datetime.today())    
-         for contract in rec.rent_contract_ids:
-             if contract.rent_date_from < t:
-                if contract.rent_date_to == False:
-                    c = contract.tenant_id 
-                else:
-                    if contract.rent_date_to >= t:
-                        c = contract.tenant_id 
-
-        rec.current_rent_contract_id = c
+    
     
     
             
