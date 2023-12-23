@@ -55,7 +55,7 @@
                                     <tree>
                                         <field name="code" />
                                         <field name="name" />
-                                        <field name="account_type" />
+                                        <!-- <field name="account_type" /> -->
                                         <field name="current_balance" />
                                     </tree>
                                 </field>
@@ -64,7 +64,7 @@
                                 <field name="analytic_account_ids">
                                     <tree>
                                         <field name="name"/>
-                                        <field name="plan_id"/>
+                                        <!-- <field name="plan_id"/> -->
                                         <field name="debit"/>
                                         <field name="credit"/>
                                         <field name="balance"/>
