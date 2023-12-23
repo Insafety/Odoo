@@ -6,7 +6,7 @@
         Deals with the accounting aspects of property rentals""",
 
     'description': """
-        Deals with the accounting aspects of property rentals
+        Deals with the management and accounting aspects of property rentals 
     """,
 
     'author': "Insafety GmbH, Zürich, Switzerland",
