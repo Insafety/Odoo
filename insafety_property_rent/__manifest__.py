@@ -6,14 +6,14 @@
         Deals with the accounting aspects of property rentals""",
 
     'description': """
-        Deals with the management and accounting aspects of property rentals 
+        Deals with the accounting aspects of property rentals 
     """,
 
     'author': "Insafety GmbH, Zürich, Switzerland",
     'website': "https://odoo.insafety.ch",
 
     'category': 'Accounting',
-    'version': '0.1',
+    'version': '0.2',
 
     'depends': ['contacts','account','l10n_generic_coa','mail'],
 
