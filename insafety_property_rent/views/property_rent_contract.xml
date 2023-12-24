@@ -17,6 +17,7 @@
                                 <field name="monthly_rent"/>
                                 <field name="monthly_extra_costs"/>
                                 <field name="monthly_lump_sum_costs"/>
+                                <field name="company_id" />
                             </group> 
                             <group>  
                                 <field name="account_receivable_id"/>

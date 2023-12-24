@@ -126,8 +126,8 @@
                                 <group>           
                                     <field name="living_area" />
                                     <field name="garden" ></field>
-                                    <field name="garden_area" attrs="{'invisible':[('garden', '=', False)] }"/>            
-                                    <field name="garden_orientation" widget="selection_badge" attrs="{'invisible':[('garden', '=', False)]}"/>
+                                    <field name="garden_area" />            
+                                    <field name="garden_orientation" widget="selection_badge" />
                                     <field name="total_area" readonly="1"/>
                                 </group> 
                                 <group>

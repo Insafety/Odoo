@@ -19,6 +19,7 @@
                                         <field name="total_area"/>
                                         <field name="total_expense"/>
                                         <field name="total_income"/> 
+                                        <field name="company_id"/>
                                     </group>
                                 </group>
                             </page>

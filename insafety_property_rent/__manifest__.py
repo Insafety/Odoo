@@ -15,7 +15,7 @@
     'category': 'Accounting',
     'version': '0.1',
 
-    'depends': ['contacts','account','l10n_generic_coa','mail'],
+    'depends': ['contacts','account','mail'],
 
     'data': [
         'security/security.xml',
@@ -39,4 +39,6 @@
     'auto_install': True,
     'license': "LGPL-3",
     'images': ['static/description/main_screenshot.png','static/description/cost_billing_en.png'],
+    'module_type': 'official'
+    
 }
