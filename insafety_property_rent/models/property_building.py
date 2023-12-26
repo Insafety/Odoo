@@ -92,7 +92,7 @@ class Property(models.Model):
         for rec in self:
             total = 0
             for acc in rec.account_expense_ids:
-                total += acc.current_balance
+                total += acc.opening_balance
             rec.total_expense = total
 
     def _compute_total_income(self):
@@ -101,7 +101,7 @@ class Property(models.Model):
             # for acc in rec.account_income_ids:
             #     total += acc.current_balance
             for acc in rec.rent_contract_ids.account_receivable_id:
-                total += acc.current_balance
+                total += acc.opening_balance
             rec.total_income = total
     
 
@@ -194,7 +194,7 @@ class Property(models.Model):
                             <tr>
                                 <td> {expense.name}&nbsp;</td>
                                 <td>{expense.currency_id.display_name}&nbsp;</td>
-                                <td style="text-align:right">{format(expense.current_balance, ".2f")}</td>
+                                <td style="text-align:right">{format(expense.opening_balance, ".2f")}</td>
                             </tr>
                     '''        
                 text += f'''
