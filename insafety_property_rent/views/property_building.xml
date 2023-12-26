@@ -56,18 +56,7 @@
                                         <field name="code" />
                                         <field name="name" />
                                         <!-- <field name="account_type" /> -->
-                                        <!-- <field name="current_balance" /> -->
-                                    </tree>
-                                </field>
-                                <div style="height:5px"/>
-                                <div>Analytic Accounts</div>
-                                <field name="analytic_account_ids">
-                                    <tree>
-                                        <field name="name"/>
-                                        <!-- <field name="plan_id"/> -->
-                                        <field name="debit"/>
-                                        <field name="credit"/>
-                                        <field name="balance"/>
+                                        <field name="current_balance" />
                                     </tree>
                                 </field>
                             </page>
@@ -81,7 +70,7 @@
                                             delete="0">
                                                 <field name="code" readonly="1"/>
                                                 <field name="name" readonly="1"/>
-                                                <!-- <field name="current_balance" sum="Total" /> -->
+                                                <field name="current_balance" sum="Total" />
                                             </tree>
                                         </field>
                                         <field name="total_vacant_cost"/>
@@ -96,7 +85,7 @@
                                     <div>
                                         <button name="calculate" class="btn-primary"
                                                 type="object"  string="Calculate"/> 
-                                        <span> </span>
+                                                <![CDATA[&nbsp;]]>
                                         <button name="create_invoice" class="btn-primary"
                                                 type="object"  string="Create Invoices"/>
                                     </div>

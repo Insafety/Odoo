@@ -222,20 +222,17 @@ class PropertyTag(models.Model):
                 'invoice_line_ids': [(0, 0, {'price_unit': contract.monthly_rent, 
                                             'account_id': contract.account_receivable_id.id, 
                                             'tax_ids': contract.tax_ids,
-                                            'name': _('Monthly Rent'),
-                                            'analytic_distribution': analyticAccounts}),
+                                            'name': _('Monthly Rent')}),
                                     (0, 0, {'price_unit':
                                             contract.monthly_lump_sum_costs, 
                                             'account_id': contract.building_id.cost_billing_receivable_id.id, 
                                             'tax_ids': contract.building_id.cost_billing_tax_ids,
-                                            'name': _('Monthly Lump Sum Costs'),
-                                            'analytic_distribution': analyticAccounts}),
+                                            'name': _('Monthly Lump Sum Costs')}),
                                     (0, 0, {'price_unit':  
                                             contract.monthly_extra_costs, 
                                             'account_id': contract.building_id.cost_billing_receivable_id.id, 
                                             'tax_ids': contract.building_id.cost_billing_tax_ids,
-                                            'name': _('Monthly Extra Costs'),
-                                            'analytic_distribution': analyticAccounts})                                 
+                                            'name': _('Monthly Extra Costs')})                                 
                                     ],
             },
         ])
@@ -275,7 +272,8 @@ class PropertyTag(models.Model):
                 </tr>
             </table>
         '''
-        invoice.narration = text
+        # html rendering not working in v14
+        # invoice.narration = text
             
     #@api.depends('building_id.distribute_by')
     def _cal_distribution_key(self):

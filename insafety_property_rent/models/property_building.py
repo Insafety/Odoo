@@ -92,7 +92,7 @@ class Property(models.Model):
         for rec in self:
             total = 0
             for acc in rec.account_expense_ids:
-                total += acc.opening_balance
+                total += acc.current_balance
             rec.total_expense = total
 
     def _compute_total_income(self):
@@ -101,7 +101,7 @@ class Property(models.Model):
             # for acc in rec.account_income_ids:
             #     total += acc.current_balance
             for acc in rec.rent_contract_ids.account_receivable_id:
-                total += acc.opening_balance
+                total += acc.current_balance
             rec.total_income = total
     
 
@@ -160,13 +160,11 @@ class Property(models.Model):
                                     (0, 0, {'price_unit': cost_billing_total - administrative_expenses, 
                                                             'account_id': building.cost_billing_receivable_id.id, 
                                                             'tax_ids': building.cost_billing_tax_ids,
-                                                            'name': _('Balance'),
-                                                            'analytic_distribution': analyticAccounts}),
+                                                            'name': _('Balance')}),
                                                       (0, 0, {'price_unit': administrative_expenses, 
                                                             'account_id': building.cost_billing_administrative_fees_id.id, 
                                                             'tax_ids': building.cost_billing_administrative_tax_ids,
-                                                            'name': _('Administrative Fees'),
-                                                            'analytic_distribution': analyticAccounts})           
+                                                            'name': _('Administrative Fees')})           
                                                     ],
                             },
                         ])      
@@ -194,7 +192,7 @@ class Property(models.Model):
                             <tr>
                                 <td> {expense.name}&nbsp;</td>
                                 <td>{expense.currency_id.display_name}&nbsp;</td>
-                                <td style="text-align:right">{format(expense.opening_balance, ".2f")}</td>
+                                <td style="text-align:right">{format(expense.current_balance, ".2f")}</td>
                             </tr>
                     '''        
                 text += f'''
@@ -233,7 +231,8 @@ class Property(models.Model):
                 </table>
                 <div>*{fraction_text}</div>
                 '''
-                invoice.narration = text
+                #html rendering not working in v14
+                #invoice.narration = text
     
     def calculate(self):
         pass
