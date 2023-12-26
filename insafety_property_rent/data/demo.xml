@@ -5,7 +5,7 @@
             <field name="name">Rent Income Building 1</field>
             <field name="code">450001</field>
             <field name="user_type_id" ref="account.data_account_type_other_income" />
-          </record>
+          </record> 
           <record id="demo_account_2" model="account.account">
             <field name="name">Costs Building 1</field>
             <field name="code">450002</field>
@@ -15,7 +15,7 @@
             <field name="name">Administrative Fees Building 1</field>
             <field name="code">450003</field>
             <field name="user_type_id" ref="account.data_account_type_other_income" />
-          </record>
+          </record> 
 
           <record id="demo_building_1" model="insafety.property.building">
             <field name="name">Building 1</field>
@@ -48,7 +48,7 @@
             <field name="volume">2.5</field>
             <field name="living_area">115</field>
           </record>
-
+          
           <record id="demo_demo_rent_contract_1" model="insafety.property.rent.contract">
             <field name="tenant_id" eval="27"/>
             <field name="property_id" ref="demo_appartement_1"/>
@@ -57,7 +57,6 @@
             <field name="monthly_extra_costs">100</field>
             <field name="monthly_lump_sum_costs">10</field>
           </record>
-
           <record id="demo_demo_rent_contract_2" model="insafety.property.rent.contract">
             <field name="tenant_id" eval="18"/>
             <field name="property_id" ref="demo_appartement_2"/>
@@ -67,7 +66,6 @@
             <field name="monthly_extra_costs">400</field>
             <field name="monthly_lump_sum_costs">15</field>
           </record>
-
           <record id="demo_demo_rent_contract_3" model="insafety.property.rent.contract">
             <field name="tenant_id" eval="19"/>
             <field name="property_id" ref="demo_appartement_2"/>
@@ -75,31 +73,29 @@
             <field name="monthly_rent">1400</field>
             <field name="monthly_extra_costs">140</field>
             <field name="monthly_lump_sum_costs">20</field>
-          </record>   
-
+          </record> 
+          
           <record id="demo_account_4" model="account.account">
             <field name="name">Genereal Expenses Building 1</field>
             <field name="code">650004</field>
-            <field name="account_type">expense</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
             <field name="building_id" ref="demo_building_1"/>
           </record>
           <record id="demo_account_5" model="account.account">
             <field name="name">Engergy Expenses Building 1</field>
             <field name="code">650005</field>
-            <field name="account_type">expense</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
             <field name="building_id" ref="demo_building_1"/>
           </record>
           <record id="demo_account_6" model="account.account">
             <field name="name">Water Expenses Building 1</field>
             <field name="code">650006</field>
-            <field name="account_type">expense</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses" />
             <field name="building_id" ref="demo_building_1"/>
           </record>
 
-
           <function model="insafety.property.building" name="create_demo_invoice"
-          eval="[[ref('demo_building_1')]]"
-            context="{'install_mode': True}"/>
+            eval="[[ref('demo_building_1')]]" context="{'install_mode': True}"/>
 
     </data>
 </odoo>
