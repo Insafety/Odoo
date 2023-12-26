@@ -4,17 +4,17 @@
           <record id="demo_account_1" model="account.account">
             <field name="name">Rent Income Building 1</field>
             <field name="code">450001</field>
-            <field name="account_type">income_other</field>
+            <field name="user_type_id" ref="account.data_account_type_other_income" />
           </record>
           <record id="demo_account_2" model="account.account">
             <field name="name">Costs Building 1</field>
             <field name="code">450002</field>
-            <field name="account_type">income_other</field>
+            <field name="user_type_id" ref="account.data_account_type_other_income" />
           </record>
           <record id="demo_account_3" model="account.account">
             <field name="name">Administrative Fees Building 1</field>
             <field name="code">450003</field>
-            <field name="account_type">income_other</field>
+            <field name="user_type_id" ref="account.data_account_type_other_income" />
           </record>
 
           <record id="demo_building_1" model="insafety.property.building">
