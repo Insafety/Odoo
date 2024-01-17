@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "insafety_firebase_sync",
+    'name': "Insafety Firebase Sync",
 
     'summary': """
         Real-time synch Odoo data to Google Cloud Firebase
