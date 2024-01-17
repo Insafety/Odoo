@@ -1,7 +1,5 @@
 <odoo>
   <data>
-    <!-- explicit list view definition -->
-
     <record model="ir.ui.view" id="insafety_firebase_sync_view">
       <field name="name">insafety_firebase_sync</field>
       <field name="model">insafety.firebase.sync</field>
@@ -9,14 +7,18 @@
        <form>
         <header>
           <button name="sync_partners" class="btn-primary"
-              type="object"  string="Set Partners"/>
+              type="object"  string="Export Partners to Firestore"/>
           <button name="delete_partners" class="btn-primary"
-              type="object"  string="Delete all Partners"/>
+              type="object"  string="Delete all Partners in Firestore"/>
+          <button name="reset_connection" class="btn-primary"
+              type="object"  string="Reset Firebase Connection"/>
         </header>
         <sheet>
           <group>
             <group>
-              <field name="name" placeholder="App Name"/>
+              <field name="name"/>
+              <field name="firebase_doc_path"/>
+              <field name="firebase_credentials"/>
             </group>  
           </group>
         </sheet>
@@ -24,32 +26,12 @@
       </field>
     </record>
 
-
-    <!-- actions opening views on models -->
-
     <record model="ir.actions.act_window" id="insafety_firebase_sync.action_window">
       <field name="name">insafety_firebase_sync window</field>
       <field name="res_model">insafety.firebase.sync</field>
       <field name="view_mode">tree,form</field>
-      <!-- <field name="context">{'create':False,'edit':False}</field>    -->
+      <field name="context">{'create':False,'edit':True,'delete':False}</field>
     </record>
-
-
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="insafety_firebase_sync.action_server">
-      <field name="name">insafety_firebase_sync server</field>
-      <field name="model_id" ref="model_insafety_firebase_sync_insafety_firebase_sync"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
-      </field>
-    </record>
--->
 
 <record id="action_open_sync" model="ir.actions.server">
   <field name="name">Open Sync</field>
@@ -60,8 +42,6 @@
 
 <menuitem name="Insafety Firebase Sync" id="menu_root_insafety_firebase_sync">
   <menuitem id="menu_firebase_synch_default" name="Configuration" action="insafety_firebase_sync.action_window"></menuitem>
-  <!-- <menuitem id="menu_firebase_sync" name="Sync" action="action_open_sync"></menuitem>
-  <menuitem id="menu_firebase_sync2" name="Sync 2" action="action_open_sync"></menuitem> -->
 </menuitem>
    
   </data>

@@ -4,59 +4,55 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from odoo.modules.module import get_module_resource
-
-_docPathPartners = "odoo/Insafety/Partners/"
+import json
+from odoo.exceptions import ValidationError
 
 class insafety_firebase_sync(models.Model):
     _name = 'insafety.firebase.sync'
-    _description = 'Firebase Sync for Releshi'
+    _description = 'Firebase Data Synch'
     
-    name = fields.Char(string="Name", required=True)
-    if not firebase_admin._apps:
-        json_file_path = get_module_resource('insafety_firebase_sync','static/src','firebase.json')
-        cred = credentials.Certificate(json_file_path)
-        firebaseApp = firebase_admin.initialize_app(cred)
-
-    global db 
-    db = firestore.client()
+    name = fields.Char(string="Name", required=True, readonly=True)
+    firebase_credentials = fields.Text(string="Firebase Project Credentials", required=True)
+    firebase_doc_path = fields.Char(string="Firebase Document Path", required=True)
 
     def sync_partners(self):
-        partners = self.env['res.partner'].search([],limit=1)
+        partners = self.env['res.partner'].search([])
+        _db = self.get_firebase()
+        _docPathPartners = self.get_doc_path()
         for p in partners:
-            partner = {
-                "name": p.name,
-                "active": p.active,
-                "avatar": p.avatar_1920.decode('utf8'),
-                "company_type": p.company_type,     
-                "lang": p.lang,
-                "bank_account_count": p.bank_account_count,
-                "is_company": p.is_company,
-                "commercial_partner_id": p.commercial_partner_id.id,
-                "company_id": p.company_id.id,
-                "country_code": p.country_code,
-                "company_type": p.company_type,
-                "parent_id": p.parent_id.id,
-                "contact_address": p.contact_address,
-                "function": p.function,
-                "phone": p.phone,
-                "mobile": p.mobile,
-                "email": p.email,
-                "website": p.website,
-                "title": p.title.display_name,
-                "lang": p.lang,
-                "category_ids": p.category_id.ids
-            }
-            print(p.name)
-            try:
-                db.document(_docPathPartners + str(p.id)).set(partner)
+            partner = self.env['res.partner'].buildPartnerObject(p)
+            _doc = _docPathPartners + str(p.id)
+            try:  
+                _db.document(_doc).set(partner)
             except:
-                print(partner)
+                raise ValidationError("Connot Set Document: " + _doc)
 
     def delete_partners(self):
-        partners = self.env['res.partner'].search([])
-        for p in partners:
+        _partners = self.env['res.partner'].search([])
+        _db = self.get_firebase()
+        _docPathPartners = self.get_doc_path()
+        for p in _partners:
+            _doc = _docPathPartners + str(p.id)
             try:
-                db.document(_docPathPartners + str(p.id)).delete()
+                _db.document(_doc).delete()
             except:
-                print(p)
+                raise ValidationError("Connot Delete Document: " + _doc)
+    
+    def reset_connection(self):
+        if firebase_admin._apps:
+            firebase_admin.delete_app(firebase_admin.get_app())
 
+    def get_firebase(self):
+        if not firebase_admin._apps:
+            _partner = self.env['insafety.firebase.sync'].search([('name', '=', "Partners")])
+            try:
+                _cert = credentials.Certificate(json.loads(_partner.firebase_credentials,strict=False))
+                firebase_admin.initialize_app(_cert)
+            except:
+                raise ValidationError("The Firebase Credentials is not valid.")
+        return firestore.client()
+
+    def get_doc_path(self):
+        _partner = self.env['insafety.firebase.sync'].search([('name', '=', "Partners")])
+        return _partner.firebase_doc_path
+        

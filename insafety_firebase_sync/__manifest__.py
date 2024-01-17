@@ -3,11 +3,13 @@
     'name': "insafety_firebase_sync",
 
     'summary': """
-        Shows how to real-time synch Odoo data to Google Cloud Firebase""",
+        Real-time synch Odoo data to Google Cloud Firebase
+        """,
 
     'description': """
-        Demonstrate how the eCommerce Categories and the related products 
-        can be synched to Insafety's Releshi Android and iOS App. 
+        Demonstrate how the Odoo Partners can be Real Time Synchronized to Firestore. 
+        When updating, inserting or deleting Partner Data in Odoo, 
+        the corresponding Firestore documents will be updated in real time.
     """,
 
     'author': "Insafety GmbH, Zürich, Switzerland",
@@ -20,17 +22,14 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'website_sale'],
+    'depends': ['base', 'contacts'],
 
     # always loaded
     'data': [
+        'data/data.xml',
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
-    ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
     ],
     'license': "LGPL-3",
 }
