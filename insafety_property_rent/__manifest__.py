@@ -15,7 +15,7 @@
     'category': 'Accounting',
     'version': '0.1',
 
-    'depends': ['contacts','account','mail'],
+    'depends': ['contacts','account','l10n_generic_coa','mail'],
 
     'data': [
         'security/security.xml',
