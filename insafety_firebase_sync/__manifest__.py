@@ -1,36 +1,44 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Insafety Firebase Sync",
+    'name': "Insafety Property Rent",
 
     'summary': """
-        Real-time synch Odoo data to Google Cloud Firebase
-        """,
+        Deals with the accounting aspects of property rentals""",
 
     'description': """
-        Demonstrate how the Odoo Partners can be Real Time Synchronized to Firestore. 
-        When updating, inserting or deleting Partner Data in Odoo, 
-        the corresponding Firestore documents will be updated in real time.
+        Deals with the accounting aspects of property rentals
     """,
 
     'author': "Insafety GmbH, Zürich, Switzerland",
     'website': "https://odoo.insafety.ch",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/16.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Services',
+    'category': 'Accounting',
     'version': '0.1',
 
-    # any module necessary for this one to work correctly
-    'depends': ['base', 'contacts'],
+    'depends': ['contacts','account','mail'],
 
-    # always loaded
     'data': [
-        'data/data.xml',
+        'security/security.xml',
         'security/ir.model.access.csv',
         'views/views.xml',
-        'views/templates.xml',
+        'views/property.xml',
+        'views/property_building.xml',
+        'views/property_type.xml',
+        'views/property_tag.xml',
+        'views/property_rent_log.xml',
+        'views/property_account_view.xml',
+        'views/property_rent_contract.xml',
+        'views/property_analytics.xml',
+        'views/menu_items.xml',
+        'data/ir_cron_data.xml',
     ],
+
+    'demo': [
+        'data/demo.xml', 
+    ],
+    'auto_install': True,
     'license': "LGPL-3",
-    'images': ['static/description/main_screenshot.png','static/description/main_screenshot.png'],
+    'images': ['static/description/main_screenshot.png','static/description/cost_billing_en.png'],
+    'module_type': 'official'
+    
 }
