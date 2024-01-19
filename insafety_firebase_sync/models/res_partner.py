@@ -45,7 +45,6 @@ class Partner(models.Model):
                 "avatar": _avatar,
                 "company_type": p.company_type,     
                 "lang": p.lang,
-                "bank_account_count": p.bank_account_count,
                 "is_company": p.is_company,
                 "commercial_partner_id": p.commercial_partner_id.id,
                 "company_id": p.company_id.id,

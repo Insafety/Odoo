@@ -1,44 +1,38 @@
+
 # -*- coding: utf-8 -*-
 {
-    'name': "Insafety Property Rent",
+    'name': "Insafety Firebase Sync",
 
     'summary': """
-        Deals with the accounting aspects of property rentals""",
+        Real-time synch Odoo data to Google Cloud Firebase
+        """,
 
     'description': """
-        Deals with the accounting aspects of property rentals
+        Demonstrate how the Odoo Partners can be Real Time Synchronized to Firestore. 
+        When updating, inserting or deleting Partner Data in Odoo, 
+        the corresponding Firestore documents will be updated in real time.
     """,
 
     'author': "Insafety GmbH, Zürich, Switzerland",
     'website': "https://odoo.insafety.ch",
 
-    'category': 'Accounting',
+    # Categories can be used to filter modules in modules listing
+    # Check https://github.com/odoo/odoo/blob/16.0/odoo/addons/base/data/ir_module_category_data.xml
+    # for the full list
+    'category': 'Services',
     'version': '0.1',
 
-    'depends': ['contacts','account','mail'],
+    # any module necessary for this one to work correctly
+    'depends': ['base', 'contacts'],
 
+    # always loaded
     'data': [
-        'security/security.xml',
+        'data/data.xml',
         'security/ir.model.access.csv',
         'views/views.xml',
-        'views/property.xml',
-        'views/property_building.xml',
-        'views/property_type.xml',
-        'views/property_tag.xml',
-        'views/property_rent_log.xml',
-        'views/property_account_view.xml',
-        'views/property_rent_contract.xml',
-        'views/property_analytics.xml',
-        'views/menu_items.xml',
-        'data/ir_cron_data.xml',
+        'views/templates.xml',
     ],
-
-    'demo': [
-        'data/demo.xml', 
-    ],
-    'auto_install': True,
     'license': "LGPL-3",
-    'images': ['static/description/main_screenshot.png','static/description/cost_billing_en.png'],
+    'images': ['static/description/main_screenshot.png','static/description/main_screenshot.png'],
     'module_type': 'official'
-    
 }
