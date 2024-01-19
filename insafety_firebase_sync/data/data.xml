@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="partner_sync" model="insafety.firebase.sync">
+            <field name="name">Partners</field>
+            <field name="firebase_credentials">Please insert the content of the google-service.json file that you download from your firebase console.</field>
+            <field name="firebase_doc_path">Partners/</field>
+        </record>
+    </data>
+</odoo>
