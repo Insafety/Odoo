@@ -58,8 +58,9 @@ class Property(models.Model):
                     if contract.rent_date_to == False:
                         c = contract.tenant_id 
                 else:
-                    if contract.rent_date_to >= t:
-                        c = contract.tenant_id 
+                    if contract.rent_date_to:
+                        if contract.rent_date_to >= t:
+                            c = contract.tenant_id 
             rec.current_rent_contract_id = c
     
 
